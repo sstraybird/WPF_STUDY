@@ -16,46 +16,34 @@ namespace WpfMvvmDemo;
 /// </summary>
 public partial class MainWindow : Window
 {
-    // Direct dependency on the Model
-    private Models.User _user;
+    private ViewModels.MainViewModel _viewModel;
 
     public MainWindow()
     {
         InitializeComponent();
         
-        // Initialize a sample user
-        _user = new Models.User 
-        { 
-            Name = "John Doe", 
-            Age = 30, 
-            Email = "john@example.com" 
-        };
+        // Initialize ViewModel and set DataContext
+        _viewModel = new ViewModels.MainViewModel();
+        this.DataContext = _viewModel;
     }
 
     private void btnLoad_Click(object sender, RoutedEventArgs e)
     {
-        // Manually copying data from Model to View
-        txtName.Text = _user.Name;
-        txtAge.Text = _user.Age.ToString();
-        txtEmail.Text = _user.Email;
+        // Demonstrating that changing the ViewModel automatically updates the View
+        // No need to touch txtName.Text etc. anymore!
         
-        lblStatus.Text = "Status: Data loaded from Model.";
+        _viewModel.Name = "Converted to MVVM";
+        _viewModel.Age = 99;
+        _viewModel.Email = "mvvm@rocks.com";
+        
+        lblStatus.Text = "Status: ViewModel properties updated from Code-Behind. View should reflect changes automatically.";
     }
 
     private void btnSave_Click(object sender, RoutedEventArgs e)
     {
-        try 
-        {
-            // Manually copying data from View to Model
-            _user.Name = txtName.Text;
-            _user.Age = int.Parse(txtAge.Text);
-            _user.Email = txtEmail.Text;
-
-            lblStatus.Text = $"Status: Data saved to Model. New state: {_user.Name}, {_user.Age}, {_user.Email}";
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Error saving data: {ex.Message}");
-        }
+        // Demonstrating that the View automatically updated the ViewModel
+        // We just read the ViewModel properties.
+        
+        lblStatus.Text = $"Status: Read from ViewModel: {_viewModel.Name}, {_viewModel.Age}, {_viewModel.Email}";
     }
 }
