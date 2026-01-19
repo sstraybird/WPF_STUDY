@@ -1,0 +1,36 @@
+﻿<Window x:Class="WpfInterfaceDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfInterfaceDemo"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <StackPanel Margin="20">
+        <TextBlock Text="智能家居控制中心 (接口演示)" FontSize="20" FontWeight="Bold" Margin="0,0,0,20"/>
+
+        <TextBlock Text="1. 选择设备 (把不同的对象赋给同一个接口变量):" Margin="0,5"/>
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+            <Button Name="UseBulbBtn" Content="插入台灯 (Bulb)" Padding="10,5" Margin="0,0,10,0" Click="UseBulbBtn_Click"/>
+            <Button Name="UseFanBtn" Content="插入风扇 (Fan)" Padding="10,5" Click="UseFanBtn_Click"/>
+        </StackPanel>
+
+        <TextBlock Text="当前连接的设备:" FontSize="14"/>
+        <TextBlock Name="CurrentDeviceText" Text="无" FontSize="16" FontWeight="Bold" Foreground="Gray" Margin="0,0,0,20"/>
+
+        <Separator Margin="0,10"/>
+
+        <TextBlock Text="2. 通用操作 (代码只通过 ISwitchable 接口调用):" Margin="0,10"/>
+        <StackPanel Orientation="Horizontal">
+            <Button Content="🟢 开启 (Calls .TurnOn())" Background="LightGreen" Padding="15,8" Margin="0,0,10,0" Click="OnBtn_Click"/>
+            <Button Content="🔴 关闭 (Calls .TurnOff())" Background="LightPink" Padding="15,8" Click="OffBtn_Click"/>
+        </StackPanel>
+
+        <Border BorderBrush="Gray" BorderThickness="1" Margin="0,20" Padding="10" Background="#FAFAFA">
+            <StackPanel>
+                <TextBlock Text="设备反馈:" FontWeight="Bold"/>
+                <TextBlock Name="StatusText" Text="..." FontSize="18" Margin="0,5" TextWrapping="Wrap"/>
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</Window>
